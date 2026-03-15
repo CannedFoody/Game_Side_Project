@@ -26,3 +26,70 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.3920815)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=545612323]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_cvnsp")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=94196041]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=342962788]
+layout_mode = 2
+
+[node name="x_pos" type="Label" parent="PanelContainer/VBoxContainer" unique_id=92526406]
+texture_filter = 1
+layout_mode = 2
+
+[node name="y_pos" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1378186995]
+texture_filter = 1
+layout_mode = 2
+
+[node name="z_pos" type="Label" parent="PanelContainer/VBoxContainer" unique_id=183023908]
+texture_filter = 1
+layout_mode = 2
+
+[node name="velocity_x" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1702634720]
+texture_filter = 1
+layout_mode = 2
+
+[node name="velocity_y" type="Label" parent="PanelContainer/VBoxContainer" unique_id=501390215]
+texture_filter = 1
+layout_mode = 2
+
+[node name="Pause Menu" type="Node" parent="." unique_id=2114552694]
+
+[node name="Pause_Menu" type="Control" parent="Pause Menu" unique_id=1591878337]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.99994
+offset_top = -87.0
+offset_right = -57.99994
+offset_bottom = -87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.0390282, 2.0390282)
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Pause Menu/Pause_Menu" unique_id=662462945]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/Pause_Menu/MarginContainer" unique_id=1702745427]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer" unique_id=1451803527]
+texture_filter = 1
+layout_mode = 2
+text = "Resume"
+
+[node name="Quit" type="Button" parent="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer" unique_id=541333579]
+texture_filter = 1
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
