@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cnk8dme0ilmxw" path="res://Scenes/player.tscn" id="1_simi3"]
 [ext_resource type="Texture2D" uid="uid://vlq4waks12is" path="res://Materials/Walls/purple.png" id="3_1cks4"]
 [ext_resource type="Texture2D" uid="uid://bxssq3pq66tdi" path="res://Materials/Walls/orange.png" id="3_uai4t"]
+[ext_resource type="Texture2D" uid="uid://dbxmh56u41gsw" path="res://Materials/Walls/red.png" id="5_rhpwq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uai4t"]
 size = Vector3(100, 0.1, 100)
@@ -42,6 +43,16 @@ size = Vector3(100, 40, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rhpwq"]
 size = Vector3(100, 40, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ovg1v"]
+size = Vector3(10, 1, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esepx"]
+albedo_texture = ExtResource("5_rhpwq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_46ng8"]
+material = SubResource("StandardMaterial3D_esepx")
+size = Vector3(10, 1, 5)
 
 [node name="Testing_Level" type="Node" unique_id=1193772229]
 
@@ -100,3 +111,12 @@ mesh = SubResource("BoxMesh_1cks4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Object/Wall3" unique_id=470054719]
 shape = SubResource("BoxShape3D_rhpwq")
+
+[node name="Crouch_Test" type="StaticBody3D" parent="Object" unique_id=1266344238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 2, 41)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Object/Crouch_Test" unique_id=1792228292]
+shape = SubResource("BoxShape3D_ovg1v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Object/Crouch_Test" unique_id=164877314]
+mesh = SubResource("BoxMesh_46ng8")

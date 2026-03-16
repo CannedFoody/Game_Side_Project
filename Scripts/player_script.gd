@@ -4,6 +4,11 @@
 class_name PlayerController
 extends CharacterBody3D
 
+# Player object node vars
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var camera_3d: Camera3D = $"Camera-Pivot/Camera3D"
+@onready var camera_pivot_anchor: Marker3D = $"Camera-Pivot-Anchor"
+
 # Menus
 @onready var pause_menu: Control = $"Pause Menu/Pause_Menu"
 @onready var debug_menu: Control = $"Debug Menu/debug_menu"
@@ -17,14 +22,16 @@ extends CharacterBody3D
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var player_speed_value: Label = $"Debug Menu/debug_menu/PanelContainer/VBoxContainer/speed/player_speed_value"
 @onready var jump_strength_value: Label = $"Debug Menu/debug_menu/PanelContainer/VBoxContainer/jump_strength/jump_strength_value"
+@onready var player_speed_temp: Label = $PanelContainer/VBoxContainer/player_speed_temp
 
+# Animations
+@onready var crouch: AnimationPlayer = $Animations/Crouch
+@onready var sprint: AnimationPlayer = $Animations/Sprint
 
+# Some miscellanious vars
 var paused = false
 var info_hidden = true
-
-# Camera vars
-@onready var camera_3d: Camera3D = $"Camera-Pivot/Camera3D"
-@onready var camera_pivot_anchor: Marker3D = $"Camera-Pivot-Anchor"
+var crouched = false
 
 # Player movement vars
 @export var player_speed = 5.0
@@ -36,11 +43,18 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _process(delta: float) -> void:
+#	Hotkey functionality
 	if(Input.is_action_just_pressed("Pause")):
 		pause_menu_functionality()
 		
 	if(Input.is_action_just_pressed("Debug")):
 		debug_menu_functionality()
+	
+	if(Input.is_action_just_pressed("Crouch") || Input.is_action_just_released("Crouch")):
+		crouch_functionality()
+		
+	if(Input.is_action_just_pressed("Info_Toggle")):
+		info_hidden = !info_hidden
 	
 #	Debug information panel toggle and information toggle.
 	
@@ -51,14 +65,12 @@ func _process(delta: float) -> void:
 	velocity_y.text = "Velocity Y | " + str(velocity.y)
 	player_speed_value.text = str(player_speed)
 	jump_strength_value.text = str(player_jump_velocity)
+	player_speed_temp.text = str(player_speed)
 	
 	if(info_hidden):
 		panel_container.hide()
 	else:
 		panel_container.show()
-		
-	if(Input.is_action_just_pressed("Info_Toggle")):
-		info_hidden = !info_hidden
 		
 func _physics_process(_delta: float) -> void:
 	if (Input.mouse_mode == Input.MOUSE_MODE_CAPTURED):
@@ -67,10 +79,14 @@ func _physics_process(_delta: float) -> void:
 			velocity += get_gravity() * _delta
 			
 		# Sprint functionality
-		if Input.is_action_just_pressed("Sprint"):
-			player_speed = player_speed + player_sprint_str
-		if Input.is_action_just_released("Sprint"):
-			player_speed = player_speed - player_sprint_str
+		if(!crouched):
+			if (Input.is_action_just_pressed("Sprint")):
+				sprint.play("Sprint")
+				player_speed = player_speed + player_sprint_str
+				
+			if (Input.is_action_just_released("Sprint")):
+				player_speed = player_speed - player_sprint_str
+				sprint.stop()
 
 		# Handle jump.
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -88,8 +104,19 @@ func _physics_process(_delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, player_speed)
 		move_and_slide()
 		
-# Pause menu functionality
+func crouch_functionality():
+	if (!crouched):
+		crouched = true
+		crouch.play("Crouch_Down")
+		collision_shape_3d.scale.y = 0.7
+		player_speed *= 0.5
+	else:
+		crouched = false
+		crouch.play("Stand_Up")
+		collision_shape_3d.scale.y = 1
+		player_speed *= 2
 		
+# Pause menu functionality
 func pause_menu_functionality():
 	if(paused):
 		pause_menu.hide()
@@ -109,7 +136,6 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 # Debug menu functionality
-
 func debug_menu_functionality():
 	if(paused):
 		debug_menu.hide()

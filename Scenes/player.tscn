@@ -3,29 +3,152 @@
 [ext_resource type="Script" uid="uid://fo3dhk6ahhku" path="res://Scripts/player_script.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://cnyx4g08ppbai" path="res://Scripts/player_camera_script.gd" id="2_cvnsp"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cvnsp"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cvnsp"]
+[sub_resource type="Animation" id="Animation_cvnsp"]
+resource_name = "Crouch_Down"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, -0.3920815), Vector3(0, 0.5, -0.3920815)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera-Pivot-Anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, -0.3920815), Vector3(0, 0.5, -0.3920815)]
+}
+
+[sub_resource type="Animation" id="Animation_6t5aa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot-Anchor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, -0.3920815)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera-Pivot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, -0.3920815)]
+}
+
+[sub_resource type="Animation" id="Animation_vgqql"]
+resource_name = "Stand_Up"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.3920815), Vector3(0, 1.5, -0.3920815)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera-Pivot-Anchor:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.5, -0.3920815), Vector3(0, 1.5, -0.3920815)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkybt"]
+_data = {
+&"Crouch_Down": SubResource("Animation_cvnsp"),
+&"RESET": SubResource("Animation_6t5aa"),
+&"Stand_Up": SubResource("Animation_vgqql")
+}
+
+[sub_resource type="Animation" id="Animation_x3wgy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14367819, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fkybt"]
+resource_name = "Sprint"
+length = 0.25
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot/Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.27667618, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3wgy"]
+_data = {
+&"RESET": SubResource("Animation_x3wgy"),
+&"Sprint": SubResource("Animation_fkybt")
+}
 
 [node name="Player" type="CharacterBody3D" unique_id=1551640454]
 script = ExtResource("1_v0iea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1548116699]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_f60y1")
+shape = SubResource("CylinderShape3D_cvnsp")
 
 [node name="Camera-Pivot" type="Node3D" parent="." unique_id=1793449673]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.3920815)
 script = ExtResource("2_cvnsp")
 
 [node name="Camera3D" type="Camera3D" parent="Camera-Pivot" unique_id=1356185722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14367819, 0)
 
 [node name="Camera-Pivot-Anchor" type="Marker3D" parent="." unique_id=1090144789]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.3920815)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=545612323]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_cvnsp")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=94196041]
 offset_right = 40.0
@@ -52,6 +175,9 @@ layout_mode = 2
 
 [node name="velocity_y" type="Label" parent="PanelContainer/VBoxContainer" unique_id=501390215]
 texture_filter = 1
+layout_mode = 2
+
+[node name="player_speed_temp" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1801487155]
 layout_mode = 2
 
 [node name="Pause Menu" type="Node" parent="." unique_id=2114552694]
@@ -173,6 +299,14 @@ size_flags_horizontal = 3
 [node name="strength_plus" type="Button" parent="Debug Menu/debug_menu/PanelContainer/VBoxContainer/jump_strength" unique_id=2069063612]
 layout_mode = 2
 text = "+10"
+
+[node name="Animations" type="Node" parent="." unique_id=653350271]
+
+[node name="Crouch" type="AnimationPlayer" parent="Animations" unique_id=1462066681]
+libraries/ = SubResource("AnimationLibrary_fkybt")
+
+[node name="Sprint" type="AnimationPlayer" parent="Animations" unique_id=477860859]
+libraries/ = SubResource("AnimationLibrary_x3wgy")
 
 [connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
