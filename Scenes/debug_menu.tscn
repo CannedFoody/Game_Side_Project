@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cfipbh0c2l1g0"]
+
+[node name="debug_menu" type="Control" unique_id=779060456]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1659922507]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1558953352]
+layout_mode = 2
+
+[node name="player_speed_label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=2142836062]
+layout_mode = 2
+text = "Player Speed"
+horizontal_alignment = 1
+
+[node name="speed" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=890987105]
+layout_mode = 2
+
+[node name="speed_plus" type="Button" parent="PanelContainer/VBoxContainer/speed" unique_id=1463850258]
+layout_mode = 2
+text = "-10"
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer/speed" unique_id=1615144100]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="player_speed_value" type="Label" parent="PanelContainer/VBoxContainer/speed" unique_id=1279351677]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/speed" unique_id=848883541]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="speed_minus" type="Button" parent="PanelContainer/VBoxContainer/speed" unique_id=905576347]
+layout_mode = 2
+text = "+10"
+
+[node name="jump_strength_label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=754823980]
+layout_mode = 2
+text = "Jump Strength"
+horizontal_alignment = 1
+
+[node name="jump_strength" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=625027719]
+layout_mode = 2
+
+[node name="strength_minus" type="Button" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=635063535]
+layout_mode = 2
+text = "-10"
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=257764159]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="jump_strength_value" type="Label" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=871124245]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=913912679]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="strength_plus" type="Button" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=2069063612]
+layout_mode = 2
+text = "+10"

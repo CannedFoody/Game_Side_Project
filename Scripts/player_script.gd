@@ -4,7 +4,9 @@
 class_name PlayerController
 extends CharacterBody3D
 
+# Menus
 @onready var pause_menu: Control = $"Pause Menu/Pause_Menu"
+@onready var debug_menu: Control = $"Debug Menu/debug_menu"
 
 # Labels for information
 @onready var x_pos: Label = $PanelContainer/VBoxContainer/x_pos
@@ -13,6 +15,9 @@ extends CharacterBody3D
 @onready var velocity_x: Label = $PanelContainer/VBoxContainer/velocity_x
 @onready var velocity_y: Label = $PanelContainer/VBoxContainer/velocity_y
 @onready var panel_container: PanelContainer = $PanelContainer
+@onready var player_speed_value: Label = $"Debug Menu/debug_menu/PanelContainer/VBoxContainer/speed/player_speed_value"
+@onready var jump_strength_value: Label = $"Debug Menu/debug_menu/PanelContainer/VBoxContainer/jump_strength/jump_strength_value"
+
 
 var paused = false
 var info_hidden = true
@@ -33,6 +38,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("Pause")):
 		pause_menu_functionality()
+		
+	if(Input.is_action_just_pressed("Debug")):
+		debug_menu_functionality()
 	
 #	Debug information panel toggle and information toggle.
 	
@@ -41,6 +49,8 @@ func _process(delta: float) -> void:
 	z_pos.text = "Z | " + str(global_position.z)
 	velocity_x.text = "Velocity X | " + str(velocity.x)
 	velocity_y.text = "Velocity Y | " + str(velocity.y)
+	player_speed_value.text = str(player_speed)
+	jump_strength_value.text = str(player_jump_velocity)
 	
 	if(info_hidden):
 		panel_container.hide()
@@ -78,6 +88,8 @@ func _physics_process(_delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, player_speed)
 		move_and_slide()
 		
+# Pause menu functionality
+		
 func pause_menu_functionality():
 	if(paused):
 		pause_menu.hide()
@@ -90,9 +102,38 @@ func pause_menu_functionality():
 	
 	paused = !paused
 
-
 func _on_resume_pressed() -> void:
 	pause_menu_functionality()
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+# Debug menu functionality
+
+func debug_menu_functionality():
+	if(paused):
+		debug_menu.hide()
+		Engine.time_scale = 1
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		debug_menu.show()
+		Engine.time_scale = 0
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	paused = !paused
+
+# Player speed debug menu functionality
+
+func _on_speed_plus_pressed() -> void:
+	player_speed -= 10
+
+func _on_speed_minus_pressed() -> void:
+	player_speed += 10
+
+# Player jump strength debug menu functionality
+
+func _on_strength_plus_pressed() -> void:
+	player_jump_velocity -= 10
+
+func _on_strength_minus_pressed() -> void:
+	player_jump_velocity += 10
