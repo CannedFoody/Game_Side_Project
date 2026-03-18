@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bn8cdlkdxb1fg"]
 
 [ext_resource type="Texture2D" uid="uid://blvo7sfb0hgcd" path="res://Materials/images.jpg" id="1_d60mj"]
+[ext_resource type="Script" uid="uid://0a3l4aojk0w1" path="res://Scripts/ball.gd" id="1_ij5cq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25osk"]
 bounce = 0.7
@@ -14,10 +15,19 @@ material = SubResource("StandardMaterial3D_ij5cq")
 [sub_resource type="SphereShape3D" id="SphereShape3D_d60mj"]
 
 [node name="Ball" type="RigidBody3D" unique_id=1967925850]
+collision_layer = 256
+collision_mask = 257
 physics_material_override = SubResource("PhysicsMaterial_25osk")
+continuous_cd = true
+script = ExtResource("1_ij5cq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1007594778]
 mesh = SubResource("SphereMesh_25osk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2016826123]
 shape = SubResource("SphereShape3D_d60mj")
+
+[node name="Kill_Timer" type="Timer" parent="." unique_id=2066443685]
+wait_time = 10.0
+
+[connection signal="timeout" from="Kill_Timer" to="." method="_on_kill_timer_timeout"]

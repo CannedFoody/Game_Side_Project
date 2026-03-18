@@ -92,7 +92,6 @@ environment = SubResource("Environment_uai4t")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9494886, 1.7085099)
 collision_layer = 0
 collision_mask = 257
-continuous_cd = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Object/Cube" unique_id=2061957720]
 mesh = SubResource("BoxMesh_ovg1v")
@@ -155,7 +154,7 @@ mesh = SubResource("BoxMesh_esepx")
 shape = SubResource("BoxShape3D_46ng8")
 
 [node name="rain_of_balls" type="Area3D" parent="." unique_id=2121238066]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 239, 0)
 script = ExtResource("7_esepx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="rain_of_balls" unique_id=1452668782]

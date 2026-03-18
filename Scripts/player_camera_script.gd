@@ -4,6 +4,9 @@
 class_name CameraController
 extends Node3D
 
+# Ball preload
+var ball_scene = preload("uid://bn8cdlkdxb1fg")
+
 var player_controller: PlayerController
 var input_rotation: Vector3
 var mouse_input: Vector2
@@ -35,3 +38,5 @@ func _process(_delta: float) -> void:
 		global_transform = player_controller.camera_pivot_anchor.get_global_transform_interpolated()
 		
 		mouse_input = Vector2.ZERO
+
+			

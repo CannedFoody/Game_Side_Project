@@ -79,3 +79,12 @@ size_flags_horizontal = 3
 [node name="strength_plus" type="Button" parent="PanelContainer/VBoxContainer/jump_strength" unique_id=2069063612]
 layout_mode = 2
 text = "+10"
+
+[node name="ball_rain" type="Label" parent="PanelContainer/VBoxContainer" unique_id=370594432]
+layout_mode = 2
+text = "Rain of balls"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1929795436]
+texture_filter = 1
+layout_mode = 2

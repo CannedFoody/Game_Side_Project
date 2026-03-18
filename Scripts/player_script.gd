@@ -4,6 +4,11 @@
 class_name PlayerController
 extends CharacterBody3D
 
+# Preload scenes
+const ball_scene = preload("uid://bn8cdlkdxb1fg")
+@onready var ball_temp: Node3D = $"Camera-Pivot/Ball"
+
+
 # Player object node vars
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var camera_3d: Camera3D = $"Camera-Pivot/Camera3D"
@@ -15,6 +20,7 @@ extends CharacterBody3D
 @onready var options_menu: Control = $"Pause Menu/options_menu"
 @onready var sens_slider: HSlider = $"Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu/VBoxContainer/Sens_Slider"
 @onready var viewbobbing_check: CheckBox = $"Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing/viewbobbing_check"
+@onready var rain_toggle: Button = $"Debug Menu/debug_menu/PanelContainer/VBoxContainer/rain_toggle"
 
 
 # Labels for information
@@ -82,6 +88,11 @@ func _process(delta: float) -> void:
 	player_speed_value.text = str(player_speed)
 	jump_strength_value.text = str(player_jump_velocity)
 	
+	if(GlobalVars.rain_of_balls):
+		rain_toggle.text = "ON"
+	else:
+		rain_toggle.text = "OFF"
+	
 	if(info_hidden):
 		panel_container.hide()
 	else:
@@ -104,7 +115,10 @@ func _physics_process(_delta: float) -> void:
 				if(GlobalVars.view_bobbing):
 					sprint.stop()
 				player_speed = player_speed - player_sprint_str
-
+		
+		if (Input.is_action_just_pressed("L_Click")):
+			spawn_ball()
+		
 		# Handle jump.
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = player_jump_velocity
@@ -193,7 +207,25 @@ func _on_speed_minus_pressed() -> void:
 # Player jump strength debug menu functionality
 
 func _on_strength_plus_pressed() -> void:
-	player_jump_velocity -= 10
+	player_jump_velocity += 10
 
 func _on_strength_minus_pressed() -> void:
-	player_jump_velocity += 10
+	player_jump_velocity -= 10
+
+# Test code
+
+func spawn_ball():
+	if Engine.time_scale == 1:
+		var camera := get_viewport().get_camera_3d()
+		var camera_transform := camera.global_transform
+		var forward := -camera_transform.basis.z
+		
+		var ball : RigidBody3D = ball_scene.instantiate()
+		ball.position = camera_transform.origin + forward * 0.5
+		ball.linear_velocity = forward * 100.0
+		var main_scene := get_parent()
+		main_scene.add_child(ball)
+
+
+func _on_rain_toggle_pressed() -> void:
+	GlobalVars.rain_of_balls = !GlobalVars.rain_of_balls
