@@ -15,6 +15,10 @@ run/main_scene="uid://c5gbny28e221x"
 config/features=PackedStringArray("4.6", "Forward Plus")
 run/max_fps=120
 
+[autoload]
+
+GlobalVars="*uid://0g16n0qxrcww"
+
 [display]
 
 window/size/viewport_width=1920

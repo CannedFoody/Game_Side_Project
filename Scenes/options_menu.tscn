@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://cku1xilimwdjp"]
+
+[node name="options_menu" type="Control" unique_id=467935139]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2078698198]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=879261894]
+layout_mode = 2
+
+[node name="Label" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=822069457]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="PanelContainer/VBoxContainer/Label" unique_id=1102547009]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="options_title" type="Label" parent="PanelContainer/VBoxContainer/Label" unique_id=1067631416]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="Spacer_R" type="Control" parent="PanelContainer/VBoxContainer/Label" unique_id=1138286274]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="PanelContainer/VBoxContainer" unique_id=1084425016]
+custom_minimum_size = Vector2(0, 12.82)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Menu" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1371480960]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="PanelContainer/VBoxContainer/Menu" unique_id=1258591359]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/Menu" unique_id=878034856]
+layout_mode = 2
+alignment = 1
+
+[node name="Sens_Title" type="Label" parent="PanelContainer/VBoxContainer/Menu/VBoxContainer" unique_id=189839]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sensitivity"
+
+[node name="Sens_Slider" type="HSlider" parent="PanelContainer/VBoxContainer/Menu/VBoxContainer" unique_id=1499830762]
+layout_mode = 2
+max_value = 0.005
+step = 0.001
+
+[node name="Spacer_R" type="Control" parent="PanelContainer/VBoxContainer/Menu" unique_id=1402842065]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="View_Bobbing" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1602247518]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="PanelContainer/VBoxContainer/View_Bobbing" unique_id=736017069]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/View_Bobbing" unique_id=1860957059]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=393387271]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="View_Bobbing" type="HBoxContainer" parent="PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=1968208219]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing" unique_id=264558089]
+layout_mode = 2
+text = "View Bobbing"
+
+[node name="viewbobbing_check" type="CheckBox" parent="PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing" unique_id=221832649]
+layout_mode = 2
+button_pressed = true
+
+[node name="Spacer_R" type="Control" parent="PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=778703116]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Back" type="PanelContainer" parent="." unique_id=999609686]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="Back" unique_id=1252330951]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"

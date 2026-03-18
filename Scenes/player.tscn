@@ -180,7 +180,141 @@ layout_mode = 2
 [node name="player_speed_temp" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1801487155]
 layout_mode = 2
 
+[node name="player_jump_temp" type="Label" parent="PanelContainer/VBoxContainer" unique_id=987135152]
+layout_mode = 2
+
+[node name="player_sens" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1765431262]
+layout_mode = 2
+
+[node name="view_bobbing_label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=1876009777]
+layout_mode = 2
+
 [node name="Pause Menu" type="Node" parent="." unique_id=2114552694]
+
+[node name="options_menu" type="Control" parent="Pause Menu" unique_id=467935139]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Pause Menu/options_menu" unique_id=2078698198]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/options_menu/PanelContainer" unique_id=879261894]
+layout_mode = 2
+
+[node name="Label" type="HBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer" unique_id=822069457]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Label" unique_id=1102547009]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="options_title" type="Label" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Label" unique_id=1067631416]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="Spacer_R" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Label" unique_id=1138286274]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer" unique_id=1084425016]
+custom_minimum_size = Vector2(0, 12.82)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Menu" type="HBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer" unique_id=1371480960]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu" unique_id=1258591359]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu" unique_id=878034856]
+layout_mode = 2
+alignment = 1
+
+[node name="Sens_Title" type="Label" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu/VBoxContainer" unique_id=189839]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sensitivity"
+
+[node name="Sens_Slider" type="HSlider" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu/VBoxContainer" unique_id=1499830762]
+layout_mode = 2
+max_value = 0.01
+step = 0.001
+
+[node name="Spacer_R" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/Menu" unique_id=1402842065]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="View_Bobbing" type="HBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer" unique_id=1602247518]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing" unique_id=736017069]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing" unique_id=1860957059]
+layout_mode = 2
+
+[node name="Spacer_L" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=393387271]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="View_Bobbing" type="HBoxContainer" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=1968208219]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing" unique_id=264558089]
+layout_mode = 2
+text = "View Bobbing"
+
+[node name="viewbobbing_check" type="CheckBox" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing" unique_id=221832649]
+layout_mode = 2
+button_pressed = true
+
+[node name="Spacer_R" type="Control" parent="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer" unique_id=778703116]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Container" type="PanelContainer" parent="Pause Menu/options_menu" unique_id=999609686]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="back_button" type="Button" parent="Pause Menu/options_menu/Container" unique_id=1252330951]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"
 
 [node name="Pause_Menu" type="Control" parent="Pause Menu" unique_id=1591878337]
 visible = false
@@ -211,6 +345,11 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 text = "Resume"
+
+[node name="Options" type="Button" parent="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer" unique_id=230854632]
+texture_filter = 1
+layout_mode = 2
+text = "Options"
 
 [node name="Quit" type="Button" parent="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer" unique_id=541333579]
 texture_filter = 1
@@ -308,7 +447,11 @@ libraries/ = SubResource("AnimationLibrary_fkybt")
 [node name="Sprint" type="AnimationPlayer" parent="Animations" unique_id=477860859]
 libraries/ = SubResource("AnimationLibrary_x3wgy")
 
+[connection signal="pressed" from="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing/viewbobbing_check" to="." method="_on_viewbobbing_check_pressed"]
+[connection signal="pressed" from="Pause Menu/options_menu/Container/back_button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Pause Menu/options_menu/Container/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Pause Menu/Pause_Menu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Debug Menu/debug_menu/PanelContainer/VBoxContainer/speed/speed_plus" to="." method="_on_speed_plus_pressed"]
 [connection signal="pressed" from="Debug Menu/debug_menu/PanelContainer/VBoxContainer/speed/speed_minus" to="." method="_on_speed_minus_pressed"]

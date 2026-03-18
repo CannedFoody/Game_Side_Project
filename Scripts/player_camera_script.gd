@@ -7,7 +7,7 @@ extends Node3D
 var player_controller: PlayerController
 var input_rotation: Vector3
 var mouse_input: Vector2
-var mouse_sensitivity: float = 0.002
+var mouse_sensitivity: float = GlobalVars.mouse_sensitivity
 
 var use_interpolation: bool = false
 var circle_strafe: bool = true
