@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbxmh56u41gsw" path="res://Materials/Walls/red.png" id="5_rhpwq"]
 [ext_resource type="PackedScene" uid="uid://bn8cdlkdxb1fg" path="res://Scenes/ball.tscn" id="6_ovg1v"]
 [ext_resource type="Script" uid="uid://bvuyjjk1we1ce" path="res://Scripts/rain_of_balls.gd" id="7_esepx"]
+[ext_resource type="PackedScene" uid="uid://dvbxqdlx8uyh" path="res://Scenes/goal.tscn" id="8_46ng8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uai4t"]
 size = Vector3(100, 0.1, 100)
@@ -160,3 +161,9 @@ script = ExtResource("7_esepx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="rain_of_balls" unique_id=1452668782]
 shape = SubResource("BoxShape3D_1aaap")
+
+[node name="Goal" parent="." unique_id=868559474 instance=ExtResource("8_46ng8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 20)
+
+[node name="Ball2" parent="." unique_id=1239727333 instance=ExtResource("6_ovg1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 17)

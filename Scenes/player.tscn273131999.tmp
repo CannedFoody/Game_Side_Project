@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://fo3dhk6ahhku" path="res://Scripts/player_script.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://cnyx4g08ppbai" path="res://Scripts/player_camera_script.gd" id="2_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://blvo7sfb0hgcd" path="res://Materials/images.jpg" id="3_6t5aa"]
-[ext_resource type="Script" uid="uid://bnl5i8ct4hq8q" path="res://Scripts/goal_scored.gd" id="4_vgqql"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cvnsp"]
 
@@ -143,21 +142,17 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_3smsa"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_f1ek2"]
-resource_name = "grow"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Camera-Pivot/Ball:scale")
+tracks/0/path = NodePath("../Camera-Pivot/Ball:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4666667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.25, 0.25, 0.25)]
+"values": [Vector3(0, -2.3841858e-07, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8erm5"]
@@ -179,7 +174,6 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ek2"]
 _data = {
 &"RESET": SubResource("Animation_3smsa"),
-&"grow": SubResource("Animation_f1ek2"),
 &"spin": SubResource("Animation_8erm5")
 }
 
@@ -199,7 +193,7 @@ script = ExtResource("2_cvnsp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14367819, 0)
 
 [node name="Ball" type="Node3D" parent="Camera-Pivot" unique_id=499822331]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.45927703, -0.08382952, -0.5441821)
+transform = Transform3D(0.24999996, 0, -5.9604634e-08, 0, 0.25, 0, 5.9604634e-08, 0, 0.24999996, 0.45927703, -0.08382952, -0.5441821)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera-Pivot/Ball" unique_id=1007594778]
 mesh = SubResource("SphereMesh_25osk")
@@ -517,7 +511,7 @@ libraries/ = SubResource("AnimationLibrary_fkybt")
 [node name="Sprint" type="AnimationPlayer" parent="Animations" unique_id=477860859]
 libraries/ = SubResource("AnimationLibrary_x3wgy")
 
-[node name="Ball_Animations" type="AnimationPlayer" parent="Animations" unique_id=1877680922]
+[node name="Ball_spin" type="AnimationPlayer" parent="Animations" unique_id=1877680922]
 libraries/ = SubResource("AnimationLibrary_f1ek2")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1249801834]
@@ -535,27 +529,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ball_throw_timer" type="Timer" parent="." unique_id=1203229557]
-wait_time = 1.5
-one_shot = true
-
-[node name="Goal_Scored" type="Label" parent="." unique_id=1536659087]
-texture_filter = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 50
-text = "GOAL!!!"
-script = ExtResource("4_vgqql")
-
 [connection signal="pressed" from="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing/viewbobbing_check" to="." method="_on_viewbobbing_check_pressed"]
 [connection signal="pressed" from="Pause Menu/options_menu/Container/back_button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Pause Menu/options_menu/Container/back_button" to="." method="_on_back_button_pressed"]
@@ -567,5 +540,3 @@ script = ExtResource("4_vgqql")
 [connection signal="pressed" from="Debug Menu/debug_menu/PanelContainer/VBoxContainer/jump_strength/strength_minus" to="." method="_on_strength_minus_pressed"]
 [connection signal="pressed" from="Debug Menu/debug_menu/PanelContainer/VBoxContainer/jump_strength/strength_plus" to="." method="_on_strength_plus_pressed"]
 [connection signal="pressed" from="Debug Menu/debug_menu/PanelContainer/VBoxContainer/rain_toggle" to="." method="_on_rain_toggle_pressed"]
-[connection signal="animation_finished" from="Animations/Ball_Animations" to="." method="_on_ball_animations_animation_finished"]
-[connection signal="timeout" from="ball_throw_timer" to="." method="_on_ball_throw_timer_timeout"]

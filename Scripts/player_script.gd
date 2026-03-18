@@ -6,8 +6,12 @@ extends CharacterBody3D
 
 # Preload scenes
 const ball_scene = preload("uid://bn8cdlkdxb1fg")
-@onready var ball_temp: Node3D = $"Camera-Pivot/Ball"
 
+# Ball stuff
+@onready var ball_throw_pos: Node3D = $"Camera-Pivot/Ball_Throw_Pos"
+@onready var ball_hand_model: Node3D = $"Camera-Pivot/Ball"
+@onready var ball_throw_timer: Timer = $ball_throw_timer
+var can_throw_ball = true
 
 # Player object node vars
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
@@ -36,11 +40,13 @@ const ball_scene = preload("uid://bn8cdlkdxb1fg")
 @onready var player_sens: Label = $PanelContainer/VBoxContainer/player_sens
 @onready var player_jump_temp: Label = $PanelContainer/VBoxContainer/player_jump_temp
 @onready var view_bobbing_label: Label = $PanelContainer/VBoxContainer/view_bobbing_label
+@onready var ball_count: Label = $PanelContainer/VBoxContainer/ball_count
 
 # Animations
 @onready var crouch: AnimationPlayer = $Animations/Crouch
 @onready var sprint: AnimationPlayer = $Animations/Sprint
-@onready var ball_spin: AnimationPlayer = $Animations/Ball_spin
+@onready var ball_animations: AnimationPlayer = $Animations/Ball_Animations
+
 
 # Some miscellanious vars
 var paused = false
@@ -55,7 +61,7 @@ var crouched = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	ball_spin.play("spin")
+	ball_animations.play("spin")
 	
 	
 func _process(delta: float) -> void:
@@ -83,6 +89,7 @@ func _process(delta: float) -> void:
 	player_jump_temp.text = "Jump strength | " + str(player_jump_velocity)
 	player_sens.text = "Sensitivity | " + str(GlobalVars.mouse_sensitivity)
 	view_bobbing_label.text = "View Bobbing | " + str(GlobalVars.view_bobbing)
+	ball_count.text = "Balls! | " + str(GlobalVars.ball_count)
 	
 #	Debug menu. 
 	player_speed_value.text = str(player_speed)
@@ -215,17 +222,29 @@ func _on_strength_minus_pressed() -> void:
 # Test code
 
 func spawn_ball():
-	if Engine.time_scale == 1:
+	if Engine.time_scale == 1 && can_throw_ball:
 		var camera := get_viewport().get_camera_3d()
 		var camera_transform := camera.global_transform
 		var forward := -camera_transform.basis.z
 		
 		var ball : RigidBody3D = ball_scene.instantiate()
-		ball.position = camera_transform.origin + forward * 0.5
+		ball.position = ball_throw_pos.global_position
 		ball.linear_velocity = forward * 100.0
+		ball.scale = Vector3(0.25,0.25,0.25)
 		var main_scene := get_parent()
 		main_scene.add_child(ball)
+		ball_hand_model.hide()
+		ball_throw_timer.start()
+		can_throw_ball = false
 
-
+func _on_ball_throw_timer_timeout() -> void:
+	ball_hand_model.show()
+	ball_animations.play("grow")
+	can_throw_ball = true
+	
 func _on_rain_toggle_pressed() -> void:
 	GlobalVars.rain_of_balls = !GlobalVars.rain_of_balls
+
+func _on_ball_animations_animation_finished(anim_name: StringName) -> void:
+	if(anim_name == "grow"):
+		ball_animations.play("spin")
