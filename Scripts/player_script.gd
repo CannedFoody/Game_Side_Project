@@ -34,6 +34,7 @@ extends CharacterBody3D
 # Animations
 @onready var crouch: AnimationPlayer = $Animations/Crouch
 @onready var sprint: AnimationPlayer = $Animations/Sprint
+@onready var ball_spin: AnimationPlayer = $Animations/Ball_spin
 
 # Some miscellanious vars
 var paused = false
@@ -48,6 +49,8 @@ var crouched = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	ball_spin.play("spin")
+	
 	
 func _process(delta: float) -> void:
 #	Hotkey functionality

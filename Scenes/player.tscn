@@ -2,8 +2,20 @@
 
 [ext_resource type="Script" uid="uid://fo3dhk6ahhku" path="res://Scripts/player_script.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://cnyx4g08ppbai" path="res://Scripts/player_camera_script.gd" id="2_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://blvo7sfb0hgcd" path="res://Materials/images.jpg" id="3_6t5aa"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cvnsp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25osk"]
+bounce = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ij5cq"]
+albedo_texture = ExtResource("3_6t5aa")
+
+[sub_resource type="SphereMesh" id="SphereMesh_25osk"]
+material = SubResource("StandardMaterial3D_ij5cq")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_d60mj"]
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
 resource_name = "Crouch_Down"
@@ -133,6 +145,44 @@ _data = {
 &"Sprint": SubResource("Animation_fkybt")
 }
 
+[sub_resource type="Animation" id="Animation_3smsa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot/Ball:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -2.3841858e-07, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8erm5"]
+resource_name = "spin"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Camera-Pivot/Ball:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.1415927, 0), Vector3(0, 6.265732, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f1ek2"]
+_data = {
+&"RESET": SubResource("Animation_3smsa"),
+&"spin": SubResource("Animation_8erm5")
+}
+
 [node name="Player" type="CharacterBody3D" unique_id=1551640454]
 script = ExtResource("1_v0iea")
 
@@ -146,6 +196,17 @@ script = ExtResource("2_cvnsp")
 
 [node name="Camera3D" type="Camera3D" parent="Camera-Pivot" unique_id=1356185722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14367819, 0)
+
+[node name="Ball" type="RigidBody3D" parent="Camera-Pivot" unique_id=1967925850]
+transform = Transform3D(0.24999996, 0, -5.9604634e-08, 0, 0.25, 0, 5.9604634e-08, 0, 0.24999996, 0.45927703, -0.08382952, -0.5441821)
+physics_material_override = SubResource("PhysicsMaterial_25osk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera-Pivot/Ball" unique_id=1007594778]
+mesh = SubResource("SphereMesh_25osk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera-Pivot/Ball" unique_id=2016826123]
+shape = SubResource("SphereShape3D_d60mj")
+disabled = true
 
 [node name="Camera-Pivot-Anchor" type="Marker3D" parent="." unique_id=1090144789]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.3920815)
@@ -446,6 +507,9 @@ libraries/ = SubResource("AnimationLibrary_fkybt")
 
 [node name="Sprint" type="AnimationPlayer" parent="Animations" unique_id=477860859]
 libraries/ = SubResource("AnimationLibrary_x3wgy")
+
+[node name="Ball_spin" type="AnimationPlayer" parent="Animations" unique_id=1877680922]
+libraries/ = SubResource("AnimationLibrary_f1ek2")
 
 [connection signal="pressed" from="Pause Menu/options_menu/PanelContainer/VBoxContainer/View_Bobbing/HBoxContainer/View_Bobbing/viewbobbing_check" to="." method="_on_viewbobbing_check_pressed"]
 [connection signal="pressed" from="Pause Menu/options_menu/Container/back_button" to="." method="_on_button_pressed"]
