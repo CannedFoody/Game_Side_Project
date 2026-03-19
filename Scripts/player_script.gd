@@ -44,7 +44,6 @@ var can_throw_ball = true
 
 # Animations
 @onready var crouch: AnimationPlayer = $Animations/Crouch
-@onready var sprint: AnimationPlayer = $Animations/Sprint
 @onready var ball_animations: AnimationPlayer = $Animations/Ball_Animations
 
 
@@ -54,9 +53,11 @@ var info_hidden = true
 var crouched = false
 
 # Player movement vars
-@export var player_speed = 5.0
-@export var player_jump_velocity = 4.5
-@export var player_sprint_str = 5.0
+@export var base_player_speed := 10.0
+@export var player_speed := base_player_speed
+@export var player_crouch_mult := 0.5
+@export var player_jump_velocity := 4.5
+@export var player_sprint_str := 5.0
 
 
 func _ready() -> void:
@@ -110,18 +111,6 @@ func _physics_process(_delta: float) -> void:
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * _delta
-			
-		# Sprint functionality
-		if(!crouched):
-			if (Input.is_action_just_pressed("Sprint")):
-				if(GlobalVars.view_bobbing):
-					sprint.play("Sprint")
-				player_speed = player_speed + player_sprint_str
-				
-			if (Input.is_action_just_released("Sprint")):
-				if(GlobalVars.view_bobbing):
-					sprint.stop()
-				player_speed = player_speed - player_sprint_str
 		
 		if (Input.is_action_just_pressed("L_Click")):
 			spawn_ball()
@@ -141,18 +130,17 @@ func _physics_process(_delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, player_speed)
 			velocity.z = move_toward(velocity.z, 0, player_speed)
 		move_and_slide()
+		player_speed_changes()
 		
 func crouch_functionality():
 	if (!crouched):
 		crouched = true
 		crouch.play("Crouch_Down")
 		collision_shape_3d.scale.y = 0.7
-		player_speed *= 0.5
 	else:
 		crouched = false
 		crouch.play("Stand_Up")
 		collision_shape_3d.scale.y = 1
-		player_speed *= 2
 		
 # Pause menu functionality
 func pause_menu_functionality():
@@ -219,6 +207,16 @@ func _on_strength_plus_pressed() -> void:
 func _on_strength_minus_pressed() -> void:
 	player_jump_velocity -= 10
 
+# Player speed changes and calculations
+
+func player_speed_changes():
+	player_speed = base_player_speed
+	
+	if(crouched):
+		player_speed *= player_crouch_mult
+	if Input.is_action_pressed("Sprint") && !crouched:
+		player_speed += player_sprint_str
+
 # Test code
 
 func spawn_ball():
@@ -229,7 +227,7 @@ func spawn_ball():
 		
 		var ball : RigidBody3D = ball_scene.instantiate()
 		ball.position = ball_throw_pos.global_position
-		ball.linear_velocity = forward * 100.0
+		ball.linear_velocity = forward * 50.0
 		ball.scale = Vector3(0.25,0.25,0.25)
 		var main_scene := get_parent()
 		main_scene.add_child(ball)

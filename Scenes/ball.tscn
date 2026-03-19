@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://0a3l4aojk0w1" path="res://Scripts/ball.gd" id="1_ij5cq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_25osk"]
-bounce = 0.7
+bounce = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ij5cq"]
 albedo_texture = ExtResource("1_d60mj")
@@ -26,8 +26,3 @@ mesh = SubResource("SphereMesh_25osk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2016826123]
 shape = SubResource("SphereShape3D_d60mj")
-
-[node name="Kill_Timer" type="Timer" parent="." unique_id=2066443685]
-wait_time = 10.0
-
-[connection signal="timeout" from="Kill_Timer" to="." method="_on_kill_timer_timeout"]

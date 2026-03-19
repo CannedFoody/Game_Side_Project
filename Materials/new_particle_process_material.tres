@@ -1,0 +1,22 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://c4eosj7uab747"]
+
+[sub_resource type="Gradient" id="Gradient_o347e"]
+colors = PackedColorArray(0.77137613, 0.14351463, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_waubo"]
+gradient = SubResource("Gradient_o347e")
+
+[sub_resource type="Curve" id="Curve_o347e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_waubo"]
+curve = SubResource("Curve_o347e")
+
+[resource]
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_waubo")
+color_ramp = SubResource("GradientTexture1D_waubo")

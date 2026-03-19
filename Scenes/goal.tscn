@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dvbxqdlx8uyh"]
 
 [ext_resource type="Script" uid="uid://b0mrhdhium2ei" path="res://Scripts/goal_area_3d.gd" id="1_paeek"]
+[ext_resource type="Material" uid="uid://c4eosj7uab747" path="res://Materials/new_particle_process_material.tres" id="2_s0pnd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_paeek"]
 albedo_color = Color(0.25565878, 0.25565878, 0.25565878, 1)
@@ -33,6 +34,12 @@ size = Vector3(9.7, 4.7, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ax2ce"]
 size = Vector3(9.7, 5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0pnd"]
+albedo_color = Color(0.823, 0, 0.573, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_in2gb"]
+material = SubResource("StandardMaterial3D_s0pnd")
 
 [node name="Goal" type="StaticBody3D" unique_id=868559474]
 
@@ -75,6 +82,26 @@ shape = SubResource("BoxShape3D_ax2ce")
 
 [node name="goal_color_change" type="Timer" parent="." unique_id=412793791]
 one_shot = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1633966287]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5, 8, 0)
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("2_s0pnd")
+draw_pass_1 = SubResource("BoxMesh_in2gb")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1576793546]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -5, 8, 0)
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("2_s0pnd")
+draw_pass_1 = SubResource("BoxMesh_in2gb")
 
 [connection signal="body_entered" from="goal_area3d" to="goal_area3d" method="_on_body_entered"]
 [connection signal="timeout" from="goal_color_change" to="goal_area3d" method="_on_goal_color_change_timeout"]
